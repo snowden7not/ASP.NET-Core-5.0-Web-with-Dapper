@@ -1,0 +1,1173 @@
+{
+	"info": {
+		"_postman_id": "16f160c4-da3b-4455-8eb5-269afbcbc7ec",
+		"name": "REST-API-Assignment-4",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34990002"
+	},
+	"item": [
+		{
+			"name": "AuthController",
+			"item": [
+				{
+					"name": "SignUp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Email\":\"Wow@gmail.com\",\r\n    \"Password\":\"Test@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44365/api/auth/signup",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Grab the JSON body\r",
+									"let body = pm.response.json();\r",
+									"\r",
+									"// If there’s a “token” field, save it to your environment\r",
+									"if (body.token) {\r",
+									"  pm.environment.set(\"token\", body.token);\r",
+									"  console.log(\"✅ Token saved:\", body.token);\r",
+									"} else {\r",
+									"  console.log(\"⚠️ No token in response!\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Email\":\"Wow@gmail.com\",\r\n    \"Password\":\"Test@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44365/api/auth/login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MoviesController",
+			"item": [
+				{
+					"name": "get-all-movies-Without-[Authorize]-in-MoviesController",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44365/api/movies?year=2024",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2024"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-movies",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44365/api/movies",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-movie-by-id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44365/api/movies/1026",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"movies",
+								"1026"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post-movie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXb3dAZ21haWwuY29tIiwianRpIjoiZDI2OGNjMDgtN2NiYS00NTczLWEyMzctMWI0MjAyYjQ3NTM1IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxOTIwOTE2MS02ZDEyLTRmMWMtYjA1YS0xYzZiMTc3MWQ2NWIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJXb3dAZ21haWwuY29tIiwiZXhwIjoxNzQ5MDI4NTE4LCJpc3MiOiJSZXN0QXBpQTNJc3N1ZXIiLCJhdWQiOiJSZXN0QXBpQTNBdWRpZW5jZSJ9.vgNPCmsMgthO3F7PXZLZhLoTbl2bp6qPZRn-BZ7l36o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Echoes of Tomorrow\",\r\n  \"yearOfRelease\": 2023,\r\n  \"plot\": \"A brilliant scientist races against time to prevent a catastrophic event after receiving cryptic messages from her future self.\",\r\n  \"producerId\": 3,\r\n  \"coverImageUrl\": \"https://images.unsplash.com/photo-1506744038136-46273834b3fb\",\r\n  \"actorIds\": [3, 6],\r\n  \"Language\": \"Hinglish\",\r\n  \"profit\": 8300000,\r\n  \"genreIds\": [1]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44365/api/movies",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post-POSTER-by-id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXb3dAZ21haWwuY29tIiwianRpIjoiZDI2OGNjMDgtN2NiYS00NTczLWEyMzctMWI0MjAyYjQ3NTM1IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxOTIwOTE2MS02ZDEyLTRmMWMtYjA1YS0xYzZiMTc3MWQ2NWIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJXb3dAZ21haWwuY29tIiwiZXhwIjoxNzQ5MDI4NTE4LCJpc3MiOiJSZXN0QXBpQTNJc3N1ZXIiLCJhdWQiOiJSZXN0QXBpQTNBdWRpZW5jZSJ9.vgNPCmsMgthO3F7PXZLZhLoTbl2bp6qPZRn-BZ7l36o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/abhis/Pictures/Screenshots/Screenshot (171).png"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost:44365/api/movies/1025/poster",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"movies",
+								"1025",
+								"poster"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-movie",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXb3dAZ21haWwuY29tIiwianRpIjoiZDI2OGNjMDgtN2NiYS00NTczLWEyMzctMWI0MjAyYjQ3NTM1IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxOTIwOTE2MS02ZDEyLTRmMWMtYjA1YS0xYzZiMTc3MWQ2NWIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJXb3dAZ21haWwuY29tIiwiZXhwIjoxNzQ5MDI4NTE4LCJpc3MiOiJSZXN0QXBpQTNJc3N1ZXIiLCJhdWQiOiJSZXN0QXBpQTNBdWRpZW5jZSJ9.vgNPCmsMgthO3F7PXZLZhLoTbl2bp6qPZRn-BZ7l36o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Echoes of Tomorrow1\",\r\n  \"yearOfRelease\": 2023,\r\n  \"plot\": \"A brilliant scientist races against time to prevent a catastrophic event after receiving cryptic messages from her future self.\",\r\n  \"producerId\": 3,\r\n  \"coverImageUrl\": \"https://images.unsplash.com/photo-1506744038136-46273834b3fb\",\r\n  \"actorIds\": [3, 6],\r\n  \"Language\": \"English1\",\r\n  \"profit\": 8300000,\r\n  \"genreIds\": [1]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44365/api/movies/1026",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"movies",
+								"1026"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-movie-by-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXb3dAZ21haWwuY29tIiwianRpIjoiZDI2OGNjMDgtN2NiYS00NTczLWEyMzctMWI0MjAyYjQ3NTM1IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxOTIwOTE2MS02ZDEyLTRmMWMtYjA1YS0xYzZiMTc3MWQ2NWIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJXb3dAZ21haWwuY29tIiwiZXhwIjoxNzQ5MDI4NTE4LCJpc3MiOiJSZXN0QXBpQTNJc3N1ZXIiLCJhdWQiOiJSZXN0QXBpQTNBdWRpZW5jZSJ9.vgNPCmsMgthO3F7PXZLZhLoTbl2bp6qPZRn-BZ7l36o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44365/api/movies/1024",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"movies",
+								"1024"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ReviewsController",
+			"item": [
+				{
+					"name": "get-all-reviews",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44365/api/reviews",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-reviews-by-movieId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44365/api/movies/4/reviews",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"movies",
+								"4",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-review-by-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44365/api/reviews/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"reviews",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post-review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"movieId\": 4,\r\n    \"message\": \"So happy to have a movie like this.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44365/api/reviews",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXb3dAZ21haWwuY29tIiwianRpIjoiNDMzZDMzMjUtMGJkNy00ODU5LTgxNGEtNzFmMzliMWYxMWE3IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxOTIwOTE2MS02ZDEyLTRmMWMtYjA1YS0xYzZiMTc3MWQ2NWIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJXb3dAZ21haWwuY29tIiwiZXhwIjoxNzQ2NTQ0MzEzLCJpc3MiOiJSZXN0QXBpQTNJc3N1ZXIiLCJhdWQiOiJSZXN0QXBpQTNBdWRpZW5jZSJ9.qzhIdZ9HrwhWMHeToJVs52Fh4jMZI6Zdz0BPGXtQLnA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"movieId\": 5,\r\n    \"message\": \"Echoes of Ember” is a blazing thrill ride that is stunning.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44365/api/reviews/3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"reviews",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-review-by-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXb3dAZ21haWwuY29tIiwianRpIjoiNDMzZDMzMjUtMGJkNy00ODU5LTgxNGEtNzFmMzliMWYxMWE3IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxOTIwOTE2MS02ZDEyLTRmMWMtYjA1YS0xYzZiMTc3MWQ2NWIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJXb3dAZ21haWwuY29tIiwiZXhwIjoxNzQ2NTQ0MzEzLCJpc3MiOiJSZXN0QXBpQTNJc3N1ZXIiLCJhdWQiOiJSZXN0QXBpQTNBdWRpZW5jZSJ9.qzhIdZ9HrwhWMHeToJVs52Fh4jMZI6Zdz0BPGXtQLnA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44365/api/reviews/3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"reviews",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ActorsController",
+			"item": [
+				{
+					"name": "get-all-actors",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44365/api/actors",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post-actor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Zara Patel1\",\r\n    \"bio\": \"well known for roles in period films.\",\r\n    \"dob\": \"2029-11-05\",\r\n    \"gender\": \"Female\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44365/api/actors",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-actor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXb3dAZ21haWwuY29tIiwianRpIjoiNDMzZDMzMjUtMGJkNy00ODU5LTgxNGEtNzFmMzliMWYxMWE3IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxOTIwOTE2MS02ZDEyLTRmMWMtYjA1YS0xYzZiMTc3MWQ2NWIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJXb3dAZ21haWwuY29tIiwiZXhwIjoxNzQ2NTQ0MzEzLCJpc3MiOiJSZXN0QXBpQTNJc3N1ZXIiLCJhdWQiOiJSZXN0QXBpQTNBdWRpZW5jZSJ9.qzhIdZ9HrwhWMHeToJVs52Fh4jMZI6Zdz0BPGXtQLnA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Zara Pateli\",\r\n    \"bio\": \"well known for roles in period films.\",\r\n    \"dob\": \"1993-11-05\",\r\n    \"gender\": \"Female\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44365/api/actors/10",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"actors",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-actor-by-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44365/api/actors/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"actors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-actor-by-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXb3dAZ21haWwuY29tIiwianRpIjoiMGU0YWUzMzktODhjMC00ODFiLWFiYWQtZjkxY2M5OTYwZTI3IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxOTIwOTE2MS02ZDEyLTRmMWMtYjA1YS0xYzZiMTc3MWQ2NWIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJXb3dAZ21haWwuY29tIiwiZXhwIjoxNzQ2NTY5MjE3LCJpc3MiOiJSZXN0QXBpQTNJc3N1ZXIiLCJhdWQiOiJSZXN0QXBpQTNBdWRpZW5jZSJ9.kWkfkR3XtSxHtfMZBWlbYPLz6eYoceg1J9X_QxCBeuo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44365/api/actors/7",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"actors",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ProducersController",
+			"item": [
+				{
+					"name": "get-all-producers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44365/api/producers",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"producers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post-producer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXb3dAZ21haWwuY29tIiwianRpIjoiNDMzZDMzMjUtMGJkNy00ODU5LTgxNGEtNzFmMzliMWYxMWE3IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxOTIwOTE2MS02ZDEyLTRmMWMtYjA1YS0xYzZiMTc3MWQ2NWIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJXb3dAZ21haWwuY29tIiwiZXhwIjoxNzQ2NTQ0MzEzLCJpc3MiOiJSZXN0QXBpQTNJc3N1ZXIiLCJhdWQiOiJSZXN0QXBpQTNBdWRpZW5jZSJ9.qzhIdZ9HrwhWMHeToJVs52Fh4jMZI6Zdz0BPGXtQLnA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Benjamin Reed\",\r\n    \"bio\": \"known for elevating indie films.\",\r\n    \"dob\": \"1980-11-12\",\r\n    \"gender\": \"Male\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44365/api/producers",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"producers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-producer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXb3dAZ21haWwuY29tIiwianRpIjoiNDMzZDMzMjUtMGJkNy00ODU5LTgxNGEtNzFmMzliMWYxMWE3IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxOTIwOTE2MS02ZDEyLTRmMWMtYjA1YS0xYzZiMTc3MWQ2NWIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJXb3dAZ21haWwuY29tIiwiZXhwIjoxNzQ2NTQ0MzEzLCJpc3MiOiJSZXN0QXBpQTNJc3N1ZXIiLCJhdWQiOiJSZXN0QXBpQTNBdWRpZW5jZSJ9.qzhIdZ9HrwhWMHeToJVs52Fh4jMZI6Zdz0BPGXtQLnA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Benjamin Reedi\",\r\n    \"bio\": \"known for elevating indie films.\",\r\n    \"dob\": \"1980-11-12\",\r\n    \"gender\": \"Male\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44365/api/producers/6",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"producers",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-producer-by-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44365/api/producers/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"producers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-producer-by-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXb3dAZ21haWwuY29tIiwianRpIjoiMGU0YWUzMzktODhjMC00ODFiLWFiYWQtZjkxY2M5OTYwZTI3IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxOTIwOTE2MS02ZDEyLTRmMWMtYjA1YS0xYzZiMTc3MWQ2NWIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJXb3dAZ21haWwuY29tIiwiZXhwIjoxNzQ2NTY5MjE3LCJpc3MiOiJSZXN0QXBpQTNJc3N1ZXIiLCJhdWQiOiJSZXN0QXBpQTNBdWRpZW5jZSJ9.kWkfkR3XtSxHtfMZBWlbYPLz6eYoceg1J9X_QxCBeuo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44365/api/producers/4",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"producers",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GenresController",
+			"item": [
+				{
+					"name": "get-all-genres",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44365/api/genres",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"genres"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post-genre",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXb3dAZ21haWwuY29tIiwianRpIjoiNDMzZDMzMjUtMGJkNy00ODU5LTgxNGEtNzFmMzliMWYxMWE3IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxOTIwOTE2MS02ZDEyLTRmMWMtYjA1YS0xYzZiMTc3MWQ2NWIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJXb3dAZ21haWwuY29tIiwiZXhwIjoxNzQ2NTQ0MzEzLCJpc3MiOiJSZXN0QXBpQTNJc3N1ZXIiLCJhdWQiOiJSZXN0QXBpQTNBdWRpZW5jZSJ9.qzhIdZ9HrwhWMHeToJVs52Fh4jMZI6Zdz0BPGXtQLnA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Science Fiction\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44365/api/genres",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"genres"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-genre",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXb3dAZ21haWwuY29tIiwianRpIjoiNDMzZDMzMjUtMGJkNy00ODU5LTgxNGEtNzFmMzliMWYxMWE3IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxOTIwOTE2MS02ZDEyLTRmMWMtYjA1YS0xYzZiMTc3MWQ2NWIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJXb3dAZ21haWwuY29tIiwiZXhwIjoxNzQ2NTQ0MzEzLCJpc3MiOiJSZXN0QXBpQTNJc3N1ZXIiLCJhdWQiOiJSZXN0QXBpQTNBdWRpZW5jZSJ9.qzhIdZ9HrwhWMHeToJVs52Fh4jMZI6Zdz0BPGXtQLnA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Science Fictionory\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44365/api/genres/3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"genres",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-genre-by-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44365/api/genres/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"genres",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-genre-by-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXb3dAZ21haWwuY29tIiwianRpIjoiMGU0YWUzMzktODhjMC00ODFiLWFiYWQtZjkxY2M5OTYwZTI3IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxOTIwOTE2MS02ZDEyLTRmMWMtYjA1YS0xYzZiMTc3MWQ2NWIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJXb3dAZ21haWwuY29tIiwiZXhwIjoxNzQ2NTY5MjE3LCJpc3MiOiJSZXN0QXBpQTNJc3N1ZXIiLCJhdWQiOiJSZXN0QXBpQTNBdWRpZW5jZSJ9.kWkfkR3XtSxHtfMZBWlbYPLz6eYoceg1J9X_QxCBeuo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44365/api/genres/2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44365",
+							"path": [
+								"api",
+								"genres",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
